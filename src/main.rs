@@ -54,7 +54,6 @@ fn main() {
 
     for _ in 0..total_events {
         let random_event: EventData = rng.gen();
-        println!("{:?}", random_event);
 
         write_event_to_csv(&mut wtr, random_event).unwrap();
     }
