@@ -4,6 +4,7 @@ use rand::Rng;
 use serde::Serialize;
 use std::error::Error;
 use std::fs::File;
+use std::time::Instant;
 use strum::EnumCount;
 use strum_macros::{EnumCount as EnumCountMacro, EnumIter};
 
@@ -45,9 +46,11 @@ fn write_event_to_csv(wtr: &mut Writer<File>, event_data: EventData) -> Result<(
 }
 
 fn main() {
-    let total_events = 1000;
+    let total_events = 10000;
     let mut rng = rand::thread_rng();
     let mut wtr = Writer::from_path("random_data.csv").unwrap();
+
+    let now = Instant::now();
 
     for _ in 0..total_events {
         let random_event: EventData = rng.gen();
@@ -56,5 +59,5 @@ fn main() {
         write_event_to_csv(&mut wtr, random_event).unwrap();
     }
 
-    println!("Done!");
+    println!("Finished in {:?}!", now.elapsed());
 }
