@@ -25,7 +25,7 @@ pub struct EventData {
 impl Distribution<EventData> for Standard {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> EventData {
         let (timestamp, correlation_id) = rng.gen();
-        let event_type = match rng.gen_range(0..=EventType::COUNT) {
+        let event_type = match rng.gen_range(0..=(EventType::COUNT - 1)) {
             0 => EventType::SensorAcknowledged,
             1 => EventType::SensorTriggered,
             _ => EventType::SensorOff,
